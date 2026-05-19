@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amplify Authentic — Your Story, Published</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,700;1,400;1,700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --ink:         #1a1714;
+    --warm-off:    #faf8f5;
+    --warm-mid:    #f0ebe3;
+    --warm-border: #e2d9cd;
+    --accent:      #c8773a;
+    --accent-lt:   #f5ede4;
+    --muted:       #9a8f83;
+    --body:        #4a4540;
+    --white:       #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--warm-off);
+    color: var(--ink);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── NAV ────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 52px;
+    background: rgba(250,248,245,0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--warm-border);
+  }
+
+  .nav-logo { text-decoration: none; }
+
+  .logo-main {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .logo-main span { color: var(--accent); }
+
+  .nav-ghost {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+
+  .nav-ghost:hover { color: var(--accent); }
+
+  /* ── HERO / MAIN ────────────────────────── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 40px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* radial glow behind fork */
+  .main::after {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,119,58,0.06) 0%, transparent 68%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .main-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: up 0.6s ease 0.05s forwards;
+  }
+
+  h1 {
+    font-family: 'Lora', Georgia, serif;
+    font-size: clamp(34px, 5vw, 60px);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: up 0.6s ease 0.18s forwards;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .sub {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.72;
+    color: var(--muted);
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: up 0.6s ease 0.3s forwards;
+  }
+
+  /* ── FORK ───────────────────────────────── */
+  .fork-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: up 0.6s ease 0.42s forwards;
+  }
+
+  .fork {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    border: 1px solid var(--warm-border);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 16px 52px rgba(26,23,20,0.09);
+    opacity: 0;
+    animation: up 0.6s ease 0.54s forwards;
+  }
+
+  .path {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 36px 36px;
+    background: var(--white);
+    text-decoration: none;
+    transition: background 0.2s;
+    position: relative;
+    text-align: left;
+  }
+
+  .path:first-child {
+    border-right: 1px solid var(--warm-border);
+  }
+
+  .path:hover { background: var(--ink); }
+
+  .path:hover .path-icon { border-color: rgba(255,255,255,0.12); }
+  .path:hover .path-icon svg { stroke: var(--accent); }
+  .path:hover .path-kicker { color: rgba(255,255,255,0.38); }
+  .path:hover .path-title  { color: var(--white); }
+  .path:hover .path-desc   { color: rgba(255,255,255,0.42); }
+  .path:hover .path-arrow  { color: var(--accent); letter-spacing: 0.22em; }
+
+  .path-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--warm-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    transition: border-color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .path-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+
+  .path-kicker {
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+
+  .path-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.22;
+    color: var(--ink);
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+
+  .path-desc {
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.74;
+    color: var(--muted);
+    margin-bottom: 28px;
+    flex: 1;
+    transition: color 0.2s;
+  }
+
+  .path-arrow {
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    transition: color 0.2s, letter-spacing 0.2s;
+  }
+
+  /* ── FOOTER ─────────────────────────────── */
+  footer {
+    padding: 28px 52px;
+    border-top: 1px solid var(--warm-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-copy {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .footer-link {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+
+  .footer-link:hover { color: var(--accent); }
+
+  /* ── ANIMATION ──────────────────────────── */
+  @keyframes up {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ─────────────────────────── */
+  @media (max-width: 640px) {
+    nav { padding: 0 24px; }
+
+    .main { padding: 100px 24px 60px; }
+
+    .fork {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+    }
+
+    .path:first-child {
+      border-right: none;
+      border-bottom: 1px solid var(--warm-border);
+    }
+
+    footer { padding: 24px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="logo-main">Amplify <span>Authentic</span></div>
+  </a>
+  <a class="nav-ghost" href="mailto:brady@bradyross.com">Get in Touch</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="main-inner">
+
+    <div class="eyebrow">Amplify Authentic</div>
+
+    <h1>Your story deserves<br>to be <em>a book.</em></h1>
+
+    <p class="sub">Tell us where you're starting from,<br>and we'll show you exactly where to go next.</p>
+
+    <div class="fork-label">Where are you right now?</div>
+
+    <div class="fork">
+
+      <a class="path" href="planmybook.html">
+        <div class="path-icon">
+          <!-- lightbulb / idea -->
+          <svg viewBox="0 0 24 24">
+            <path d="M9 21h6M10 17.5c0-1-.5-2-1.5-3A5 5 0 1 1 15.5 14.5c-1 1-1.5 2-1.5 3"/>
+            <line x1="12" y1="17" x2="12" y2="13"/>
+          </svg>
+        </div>
+        <div class="path-kicker">Plan My Book</div>
+        <div class="path-title">I Have an Idea</div>
+        <p class="path-desc">You know you have something to say. Get a personalized roadmap that turns your idea into a real book.</p>
+        <div class="path-arrow">Start Here →</div>
+      </a>
+
+      <a class="path" href="alreadyabook.html">
+        <div class="path-icon">
+          <!-- document stack -->
+          <svg viewBox="0 0 24 24">
+            <rect x="5" y="3" width="13" height="18" rx="1.5"/>
+            <line x1="9" y1="8"  x2="15" y2="8"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+            <line x1="9" y1="16" x2="12" y2="16"/>
+          </svg>
+        </div>
+        <div class="path-kicker">Already a Book</div>
+        <div class="path-title">I Have Content</div>
+        <p class="path-desc">Podcasts, newsletters, social posts, journal entries. You're closer than you think. Let's shape it into something you can publish.</p>
+        <div class="path-arrow">Start Here →</div>
+      </a>
+
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Amplify Authentic</div>
+  <div class="footer-copy">Powered by Ross Family Enterprises, LLC</div>
+</footer>
+
+</body>
+</html>
